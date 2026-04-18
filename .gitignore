@@ -1,0 +1,10 @@
+# Variables & Secrets
+*.key
+*.pem
+keys/
+
+# Local Logs
+*.log
+
+# AI Assistant Files
+.codex

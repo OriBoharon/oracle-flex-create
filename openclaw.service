@@ -1,0 +1,16 @@
+[Unit]
+Description=OCI A1 capacity watcher
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/openclaw/acquire_a1.env
+Environment=PATH=/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+WorkingDirectory=/opt/openclaw
+ExecStart=/usr/local/bin/acquire_a1.sh --env-file /etc/openclaw/acquire_a1.env
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
