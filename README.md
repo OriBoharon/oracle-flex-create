@@ -1,6 +1,6 @@
-# Openclaw
+# oracle-flex-create
 
-`openclaw` is a small OCI CLI watcher that keeps trying to acquire an Always Free `VM.Standard.A1.Flex` instance and sends a Telegram message once the launch succeeds.
+`oracle-flex-create` is a small OCI CLI watcher that keeps trying to acquire an Always Free `VM.Standard.A1.Flex` instance and sends a Telegram message once the launch succeeds.
 
 It is meant to run on a separate watcher VM, such as your existing `VM.Standard.E2.1.Micro`.
 
@@ -17,7 +17,7 @@ It is meant to run on a separate watcher VM, such as your existing `VM.Standard.
 
 - `acquire_a1.sh`: main watcher script
 - `acquire_a1.env.example`: sample runtime configuration
-- `openclaw.service`: sample `systemd` unit
+- `oracle-flex-create.service`: sample `systemd` unit
 - `loop.sh`: compatibility wrapper that now calls `acquire_a1.sh`
 
 ## Setup
@@ -40,13 +40,13 @@ OCI_BIN="/root/bin/oci"
 3. Copy the watcher files into place:
 
 ```bash
-sudo install -d -m 0755 /opt/openclaw /etc/openclaw
-sudo install -m 0755 openclaw/acquire_a1.sh /usr/local/bin/acquire_a1.sh
-sudo install -m 0644 openclaw/openclaw.service /etc/systemd/system/openclaw.service
-cp openclaw/acquire_a1.env.example /etc/openclaw/acquire_a1.env
+sudo install -d -m 0755 /opt/oracle-flex-create /etc/oracle-flex-create
+sudo install -m 0755 oracle-flex-create/acquire_a1.sh /usr/local/bin/acquire_a1.sh
+sudo install -m 0644 oracle-flex-create/oracle-flex-create.service /etc/systemd/system/oracle-flex-create.service
+cp oracle-flex-create/acquire_a1.env.example /etc/oracle-flex-create/acquire_a1.env
 ```
 
-4. Edit `/etc/openclaw/acquire_a1.env` and set:
+4. Edit `/etc/oracle-flex-create/acquire_a1.env` and set:
 
 - `OCI_REGION`
 - `COMPARTMENT_OCID`
@@ -59,14 +59,14 @@ cp openclaw/acquire_a1.env.example /etc/openclaw/acquire_a1.env
 5. Test Telegram before enabling the service:
 
 ```bash
-/usr/local/bin/acquire_a1.sh --env-file /etc/openclaw/acquire_a1.env --test-telegram
+/usr/local/bin/acquire_a1.sh --env-file /etc/oracle-flex-create/acquire_a1.env --test-telegram
 ```
 
 6. Enable and start the watcher:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable --now openclaw.service
+sudo systemctl enable --now oracle-flex-create.service
 ```
 
 ## Operations
@@ -74,19 +74,19 @@ sudo systemctl enable --now openclaw.service
 Check status:
 
 ```bash
-systemctl status openclaw.service
+systemctl status oracle-flex-create.service
 ```
 
 Follow logs:
 
 ```bash
-journalctl -u openclaw.service -f
+journalctl -u oracle-flex-create.service -f
 ```
 
 Run manually:
 
 ```bash
-./openclaw/acquire_a1.sh --env-file ./openclaw/acquire_a1.env
+./oracle-flex-create/acquire_a1.sh --env-file ./oracle-flex-create/acquire_a1.env
 ```
 
 ## Notes

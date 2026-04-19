@@ -14,7 +14,7 @@ This repository implements a small OCI watcher that continuously tries to acquir
 
 - `acquire_a1.sh`: main watcher script and entrypoint.
 - `acquire_a1.env.example`: sample runtime configuration file.
-- `openclaw.service`: sample `systemd` unit for running the watcher as a service.
+- `oracle-flex-create.service`: sample `systemd` unit for running the watcher as a service.
 - `README.md`: usage, installation, and operation guidance.
 
 ## Important Operating Rules
